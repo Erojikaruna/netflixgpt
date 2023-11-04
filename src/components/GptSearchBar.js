@@ -13,8 +13,6 @@ const GptSearchBar = () => {
   // search movie in TMDB
   const searchMovieTMDB = async (movie) => {
     const data = await fetch(
-      // 'https://api.themoviedb.org/3/search/movie?query="+ movie +"&include_adult=false&language=en-US&page=1',
-
       "https://api.themoviedb.org/3/search/movie?query=" +
         movie +
         "&include_adult=false&language=en-US&page=1",
