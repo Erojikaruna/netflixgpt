@@ -28,7 +28,7 @@ const GptSearchBar = () => {
     // Make an API call to get GPT APT  Movies Results
 
     const gptQuery =
-      "Act as a Movie Recommendation System and suggest some movies for the query" +
+      "Act as a Movie Recommendation System and suggest some movies for the query :" +
       searchText.current.value +
       ". only give me names of 5 movies, comma seperated like the example result given ahed. Example Result:Gadar, Sholy, Don, Jawan, Golmal";
 
@@ -37,14 +37,15 @@ const GptSearchBar = () => {
       model: "gpt-3.5-turbo",
     });
 
-    /* if (!gptResults.choices) {
+    if (!gptResults.choices) {
       //error handling
     }
- */
+
     console.log(gptResults.choices?.[0]?.message?.content);
     const gptMovies = gptResults.choices?.[0]?.message?.content.split(" , ");
 
     const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+    // [Promise, Promise, Promise, Promise, Promise]
 
     const tmdbResults = await Promise.all(promiseArray);
 
