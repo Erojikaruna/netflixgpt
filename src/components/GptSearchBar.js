@@ -20,6 +20,7 @@ const GptSearchBar = () => {
     );
 
     const json = await data.json();
+    //console.log("json:", json);
     return json.results;
   };
 
@@ -30,7 +31,7 @@ const GptSearchBar = () => {
     const gptQuery =
       "Act as a Movie Recommendation System and suggest some movies for the query :" +
       searchText.current.value +
-      ". only give me names of 5 movies, comma seperated like the example result given ahed. Example Result:Gadar, Sholy, Don, Jawan, Golmal";
+      ". only give me names of 5 movies, comma seperated like the example result given ahed. Example Result:Gadar, Sholay, Don, jawan, Golmaal";
 
     const gptResults = await openai.chat.completions.create({
       messages: [{ role: "user", content: gptQuery }],
@@ -41,8 +42,8 @@ const GptSearchBar = () => {
       //error handling
     }
 
-    console.log(gptResults.choices?.[0]?.message?.content);
-    const gptMovies = gptResults.choices?.[0]?.message?.content.split(" , ");
+    const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
+    console.log("gptMovies:", gptMovies);
 
     const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
     // [Promise, Promise, Promise, Promise, Promise]
